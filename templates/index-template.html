@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="be">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="index,follow" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link href="fonts.css" rel="stylesheet">
+
+    <title>Іван Насовіч. Слоўнік беларускай мовы (Словарь бѣлорусскаго нарѣчія, составленный И. И. Носовичемъ)</title>
+    <style type="text/css">
+       body {
+           background-image: url("b.jpg");
+           background-repeat: repeat;
+       }
+       .header {
+           border-width: 4px;
+           border-bottom-style: solid;
+           border-color: #d9534f;
+           background-color: #0000;
+           padding: 1rem;
+           overflow: auto;
+       }
+       a.header-link {
+           text-decoration: none;
+       }
+       .header h1 {
+           font-family: 'Lora', serif;
+           font-weight: 700;
+           font-size: 1.8rem;
+           color: #d9534f;
+       }
+       .header h2 {
+           font-family: 'Lora', serif;
+           font-weight: 400;
+           font-size: 1.2rem;
+           color: #d9534f;
+       }
+       .error {
+           color: red;
+           text-align: center!important;
+           font-size: 200%;
+           font-weight: bold;
+       }
+       span.poetry {
+           display: block;
+           padding-left: 5em;
+       }
+       .popover {
+           max-width: 1500px;
+           margin-left: 2em;
+           margin-right: 2em;
+           background: #f0f0f0;
+       }
+       .popover-body p {
+           margin-bottom: 0.2em;
+       }
+       .input {
+           margin-top: 1em;
+           margin-bottom: 1em;
+       }
+    </style>
+    <script src="jquery-3.4.1.slim.min.js"></script>
+    <script src="popper.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="funcs.js"></script>
+  </head>
+  <body>
+    <div class="container">
+        <a class="header-link" href="index.html">
+            <div class="header">
+                <img alt="[вокладка]" style="float: left; margin-right: 2rem;" width="100" src="title.jpg"/>
+                <h1><b>Іван Насовіч. Слоўнік беларускай мовы</b></h1>
+                <h2>Словарь бѣлорусскаго нарѣчія, составленный И. И. Носовичемъ</h2>
+                <span style="clear: both"></span>
+            </div>
+        </a>
+    </div>
+    <div class="container">
+      <div id="input" style="display: none;">
+        <div class="input">
+          Арыгінальны рэестр слоўніка<br/>
+          <i>алфавітны парадак:</i> {{{HEADER_ORIG_HEADERS}}}<br/>
+          <i>адваротны парадак:</i> {{{HEADER_ORIG_HEADERS_REVERSE}}}
+        </div>
+        <div class="input">
+          Асучаснены рэестр слоўніка<br/>
+          <i>алфавітны парадак:</i> {{{HEADER_NEW_HEADERS}}}<br/>
+          <i>адваротны парадак:</i> {{{HEADER_NEW_HEADERS_REVERSE}}}
+        </div>
+        <form class="form-inline input" action="javascript:false;" style="text-align: center">
+          <label>Пошук: </label>
+          <div class="form-check form-check-inline">
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" onclick="sel();">
+            <label class="form-check-label" for="inlineRadio2"><i>па загаловачным слове</i></label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" onclick="sel();">
+            <label class="form-check-label" for="inlineRadio3"><i>па загаловачным слове і па тэксце</i></label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked onclick="sel();">
+            <label class="form-check-label" for="inlineRadio1"><i>па асучасненых і ключавых словах</i></label>
+          </div>
+        </form>
+        <form class="form-inline input" id="searchform" action="javascript:false;">
+          <input type="text" class="form-control" placeholder="Слова..." id="word">
+          <div class="form-check form-check-inline"></div>
+          <div class="form-check form-check-inline" id="inLettersButtons" style="display: none;">
+            <button id="inI" onclick="app('и'); return false;">и</button>
+            <button id="inSch" onclick="app('щ'); return false;">щ</button>
+            <button id="inTv" onclick="app('ъ'); return false;">ъ</button>
+            <button id="inJer" onclick="app('ѣ'); return false;">ѣ</button>
+          </div>
+          <div class="form-check form-check-inline"></div>
+          <button type="submit" class="btn btn-primary" id="btnSearch">Пошук</button>
+        </form>
+        <p style="font-size: 75%;">Для пошуку форм слова выкарыстоўвайце зорачку, напр.: <i>сварыц*</i> (падрабязней гл. <a href="art2.html">як карыстацца</a>).</p>
+      </div>
+      <div id="intro">
+        <div>
+          <hr/>
+        </div>
+        {{{INTROS}}}
+      </div>
+      <div class="row" id="listWords">
+      </div>
+      <div id="out">
+          {{{ARTICLES}}}
+      </div>
+      <div class="error input" id="error" style="display: none;">
+      </div>
+    </div>
+    <div class="container divider">
+        <hr/>
+        <div class="footer">
+            <p class="text-center"><a href="https://github.com/Belarus/Slouniki-Nasovic">https://github.com/Belarus/Slouniki-Nasovic</a></p>
+        </div>
+    </div>
+</body>
+<script>
+var WORDS_NEW = {{{WORDS_NEW}}};
+var WORDS_HEADER = {{{WORDS_HEADER}}};
+var WORDS_TEXT = {{{WORDS_TEXT}}};
+var LETTERS = "ёйцукенгшўзхфывапролджэячсмітьбюищъѣ'qwertyuiopasdfghjklzxcvbnm";
+var HEADER_NEW = {{{HEADER_NEW}}};
+var HEADER_ORIG = {{{HEADER_ORIG}}};
+var HEADER_NEW_REVERSE = {{{HEADER_NEW_REVERSE}}};
+var HEADER_ORIG_REVERSE = {{{HEADER_ORIG_REVERSE}}};
+</script>
+</html>

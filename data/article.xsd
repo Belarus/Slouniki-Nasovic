@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified"
+	xmlns:sp="http://slounik.plus/">
+	<xs:element name="root">
+		<xs:annotation>
+			<xs:documentation>Артыкул</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="suc" type="xs:string" minOccurs="1" maxOccurs="1" />
+				<xs:element name="synonyms" type="xs:string" minOccurs="1" maxOccurs="1" />
+				<xs:element name="comment" type="xs:string" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:appinfo sp:attr="bg">#f9e877</xs:appinfo>
+						<xs:documentation>Каментар да артыкула</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="rtf" minOccurs="1" maxOccurs="1" />
+				<xs:element ref="zah" minOccurs="1" maxOccurs="1" />
+				<xs:element ref="tlum" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rtf" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Зыходны тэкст</xs:documentation>
+			<xs:appinfo sp:attr="custom">org.im.dc.client.ui.xmlstructure.nasovic.XmlEditNasovic</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="zah" type="xs:string">
+		<xs:annotation>
+			<xs:appinfo sp:attr="bg">#b0d89c</xs:appinfo>
+			<xs:appinfo sp:attr="border">#000000</xs:appinfo>
+			<xs:documentation>Загаловак артыкула</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="tlum">
+		<xs:annotation>
+			<xs:appinfo sp:attr="bg">#b7dde8</xs:appinfo>
+			<xs:appinfo sp:attr="border">#0000FF</xs:appinfo>
+			<xs:documentation>Тлумачэнне</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="gram" type="xs:string" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>Граматычная памета</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="desc" type="xs:string" maxOccurs="1" minOccurs="1">
+					<xs:annotation>
+						<xs:documentation>Тэкст тлумачэння</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ex" type="xs:string" maxOccurs="unbounded" minOccurs="0">
+					<xs:annotation>
+						<xs:appinfo sp:attr="bg">#87a3ab</xs:appinfo>
+						<xs:documentation>Прыклад</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
