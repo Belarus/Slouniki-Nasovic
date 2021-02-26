@@ -122,6 +122,9 @@ function search() {
 function charFirst(word) {
     for(var i=0; i<word.length; i++) {
         var c=word.charAt(i).toUpperCase();
+        if (c=='U') {
+            continue;
+        }
         if (c=='Ґ') {
             return 'Г';
         } else if (c.toLowerCase() != c.toUpperCase()) {
@@ -133,6 +136,9 @@ function charFirst(word) {
 function charLast(word, p) {
     for(var i=p-1; i>=0; i--) {
         var c=word.charAt(i).toUpperCase();
+        if (c=='U') {
+            continue;
+        }
         if (c=='Ґ') {
             return 'Г';
         } else if (c.toLowerCase() != c.toUpperCase()) {
