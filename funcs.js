@@ -17,7 +17,7 @@ function parseSearchString(searchStr, replaceJac) {
             if (letterCount>=2) {
                 if (w.includes('*') || (replaceJac && (w.includes('е') || w.includes('я')))) {
                     w = w.replaceAll('-','\-');
-                    w = w.replaceAll('*','.+');
+                    w = w.replaceAll('*','.*');
                     w = w.replaceAll('е','[еѣ]');
                     w = w.replaceAll('я','[яѣ]');
                     searchWordsRegexp.push(new RegExp('^'+w+'$'));
@@ -40,7 +40,7 @@ function parseSearchString(searchStr, replaceJac) {
     if (letterCount>=2) {
         if (w.includes('*') || (replaceJac && (w.includes('е') || w.includes('я')))) {
             w = w.replaceAll('-','\-');
-            w = w.replaceAll('*','.+');
+            w = w.replaceAll('*','.*');
             w = w.replaceAll('е','[еѣ]');
             w = w.replaceAll('я','[яѣ]');
             searchWordsRegexp.push(new RegExp('^'+w+'$'));
@@ -122,6 +122,9 @@ function search() {
 function charFirst(word) {
     for(var i=0; i<word.length; i++) {
         var c=word.charAt(i).toUpperCase();
+        if (c=='U') {
+            continue;
+        }
         if (c=='Ґ') {
             return 'Г';
         } else if (c.toLowerCase() != c.toUpperCase()) {
@@ -133,6 +136,9 @@ function charFirst(word) {
 function charLast(word, p) {
     for(var i=p-1; i>=0; i--) {
         var c=word.charAt(i).toUpperCase();
+        if (c=='U') {
+            continue;
+        }
         if (c=='Ґ') {
             return 'Г';
         } else if (c.toLowerCase() != c.toUpperCase()) {
@@ -196,6 +202,28 @@ function lastLetter(list, ch) {
     }
     if (n > 0) {
         place.append("<div class='col-md-3' style='text-align: right'>"+txt+"</div>\n");
+    }
+}
+
+function showLetter(list, ch) {
+    $('#error').hide();
+    $('#intro').hide();
+    $('#listWords').empty();
+    $('#out div').hide();
+
+    var place = $('#listWords');
+    var n = 0;
+    var txt = "";
+    for (var i = 0; i < list.length; i++) {
+        var pos = list[i].indexOf('#');
+        var word = list[i].substring(0, pos);
+        var idx = parseInt(list[i].substring(pos+1));
+        var article = $('#aidx'+idx);
+        if (charFirst(list[i]) == ch) {
+            article.show();
+        } else {
+            article.hide();
+        }
     }
 }
 
