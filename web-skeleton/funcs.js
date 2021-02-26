@@ -17,7 +17,7 @@ function parseSearchString(searchStr, replaceJac) {
             if (letterCount>=2) {
                 if (w.includes('*') || (replaceJac && (w.includes('е') || w.includes('я')))) {
                     w = w.replaceAll('-','\-');
-                    w = w.replaceAll('*','.+');
+                    w = w.replaceAll('*','.*');
                     w = w.replaceAll('е','[еѣ]');
                     w = w.replaceAll('я','[яѣ]');
                     searchWordsRegexp.push(new RegExp('^'+w+'$'));
@@ -40,7 +40,7 @@ function parseSearchString(searchStr, replaceJac) {
     if (letterCount>=2) {
         if (w.includes('*') || (replaceJac && (w.includes('е') || w.includes('я')))) {
             w = w.replaceAll('-','\-');
-            w = w.replaceAll('*','.+');
+            w = w.replaceAll('*','.*');
             w = w.replaceAll('е','[еѣ]');
             w = w.replaceAll('я','[яѣ]');
             searchWordsRegexp.push(new RegExp('^'+w+'$'));
