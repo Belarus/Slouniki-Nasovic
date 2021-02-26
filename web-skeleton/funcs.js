@@ -205,6 +205,28 @@ function lastLetter(list, ch) {
     }
 }
 
+function showLetter(list, ch) {
+    $('#error').hide();
+    $('#intro').hide();
+    $('#listWords').empty();
+    $('#out div').hide();
+
+    var place = $('#listWords');
+    var n = 0;
+    var txt = "";
+    for (var i = 0; i < list.length; i++) {
+        var pos = list[i].indexOf('#');
+        var word = list[i].substring(0, pos);
+        var idx = parseInt(list[i].substring(pos+1));
+        var article = $('#aidx'+idx);
+        if (charFirst(list[i]) == ch) {
+            article.show();
+        } else {
+            article.hide();
+        }
+    }
+}
+
 function showPopover(elem, idxes) {
 	setTimeout(function () {
 		$(elem).popover({

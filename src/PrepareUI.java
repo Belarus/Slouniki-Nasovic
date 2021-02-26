@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.Collator;
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class PrepareUI {
 		script = new String(Files.readAllBytes(Paths.get("data/output.js")), "UTF-8");
 
 		for (Path f : Files.list(Paths.get("web-skeleton/")).collect(Collectors.toList())) {
-			Files.copy(f, Paths.get("web/").resolve(f.getFileName()));
+			Files.copy(f, Paths.get("web/").resolve(f.getFileName()), StandardCopyOption.REPLACE_EXISTING);
 		}
 		Files.list(Paths.get("templates/")).filter(p -> p.getFileName().toString().matches("art[0-9]\\.html")).sorted()
 				.forEach(p -> art(p));
@@ -224,6 +225,9 @@ public class PrepareUI {
 		String header = articles.stream().map(headerMapper).map(charFirst).distinct()
 				.map(ch -> "<a href='javascript:firstLetter(" + prefix + ",\"" + ch + "\");'>" + ch + "</a> ")
 				.sorted(besort).collect(Collectors.joining());
+		String headerShow = articles.stream().map(headerMapper).map(charFirst).distinct()
+				.map(ch -> "<a href='javascript:showLetter(" + prefix + ",\"" + ch + "\");'>" + ch + "</a> ")
+				.sorted(besort).collect(Collectors.joining());
 		String headerReverse = articles.stream().map(headerMapper).map(charLast).distinct()
 				.map(ch -> "<a href='javascript:lastLetter(" + prefix + "_REVERSE,\"" + ch + "\");'>" + ch + "</a> ")
 				.sorted(besort).collect(Collectors.joining());
@@ -248,6 +252,7 @@ public class PrepareUI {
 					.append("</div>\n");
 		}
 		replaces.put("{{{" + prefix + "_HEADERS}}}", header);
+		replaces.put("{{{" + prefix + "_HEADERS_SHOW}}}", headerShow);
 		replaces.put("{{{" + prefix + "_HEADERS_REVERSE}}}", headerReverse);
 		replaces.put("{{{" + prefix + "_WORDS}}}", words.toString());
 		Gson gson = new Gson();
