@@ -205,7 +205,7 @@ public class PrepareUI {
 			if (afterWord == null)
 				afterWord = "";
 			String linkedIndexesArray = getArticleIdx(linkedWord);
-			html = html.replace("{" + linkedWord + afterWord + "}", "<a href='javascript:' onclick='showPopover(this,"
+			html = html.replace("{" + linkedWord + afterWord + "}", "<a href='javascript:' onclick='showElementPopover(this,"
 					+ linkedIndexesArray + ");'>" + linkedWord + afterWord + "</a>");
 		}
 		return html;
