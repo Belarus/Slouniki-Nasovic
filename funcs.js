@@ -168,7 +168,7 @@ function firstLetter(list, ch) {
             var pos = list[i].indexOf('#');
             var word = list[i].substring(0, pos);
             var idx = parseInt(list[i].substring(pos+1));
-            txt += '<div><a href="javascript:" onclick="showPopover(this,['+idx+'])" data-placement="bottom" data-toggle="popover" data-container="body" data-html="true">'+word+'</a></div>';
+            txt += '<div><a href="javascript:" onclick="showElementPopover(this,['+idx+'])" data-placement="bottom" data-toggle="popover" data-container="body" data-html="true">'+word+'</a></div>';
         }
     }
     if (n > 0) {
@@ -197,7 +197,7 @@ function lastLetter(list, ch) {
             var pos = list[i].indexOf('#');
             var word = list[i].substring(0, pos);
             var idx = parseInt(list[i].substring(pos+1));
-            txt += '<div><a href="javascript:" onclick="showPopover(this,['+idx+'])" data-placement="bottom" data-toggle="popover" data-container="body" data-html="true">'+word+'</a></div>';
+            txt += '<div><a href="javascript:" onclick="showElementPopover(this,['+idx+'])" data-placement="bottom" data-toggle="popover" data-container="body" data-html="true">'+word+'</a></div>';
         }
     }
     if (n > 0) {
@@ -218,16 +218,16 @@ function showLetter(list, ch) {
         var pos = list[i].indexOf('#');
         var word = list[i].substring(0, pos);
         var idx = parseInt(list[i].substring(pos+1));
-        var article = $('#aidx'+idx);
+        var article = document.getElementById('aidx'+idx);
         if (charFirst(list[i]) == ch) {
-            article.show();
+            article.className = '';
         } else {
-            article.hide();
+            article.className = 'hidden';
         }
     }
 }
 
-function showPopover(elem, idxes) {
+function showElementPopover(elem, idxes) {
 	setTimeout(function () {
 		$(elem).popover({
 			container: 'body',
