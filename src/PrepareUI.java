@@ -124,7 +124,7 @@ public class PrepareUI {
 		});
 
 		for (ArticleInfo a : articles) {
-			articlesHtml.append("<div id='aidx" + a.idx + "' style='display: none;'>\n  ").append(a.html)
+			articlesHtml.append("<div id='aidx" + a.idx + "' class='hidden'>\n  ").append(a.html)
 					.append("</div>\n");
 			wordsNew.add(a.normalizedWordsNew);
 			wordsHeader.add(a.normalizedWordsHeader);
