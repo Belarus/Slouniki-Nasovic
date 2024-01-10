@@ -105,12 +105,12 @@ function search() {
 
     var found = false;
     for (var i = 0; i < list.length; i++) {
-        var article = $('#aidx'+i);
+        var article = document.getElementById('aidx'+i);
         if (wordInArticle(list[i])) {
-            article.show();
+            article.className = '';
             found = true;
         } else {
-            article.hide();
+            article.className = 'hidden';
         }
     }
     if (!found) {
